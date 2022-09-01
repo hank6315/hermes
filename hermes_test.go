@@ -1,8 +1,9 @@
 package hermes
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 var testedThemes = []Theme{
@@ -56,26 +57,28 @@ func (ed *SimpleExample) getExample() (Hermes, Email) {
 				{"Lastname", "Snow"},
 				{"Birthday", "01/01/283"},
 			},
-			Table: Table{
-				Data: [][]Entry{
-					{
-						{Key: "Item", Value: "Golang"},
-						{Key: "Description", Value: "Open source programming language that makes it easy to build simple, reliable, and efficient software"},
-						{Key: "Price", Value: "$10.99"},
+			Tables: []Table{
+				{
+					Data: [][]Entry{
+						{
+							{Key: "Item", Value: "Golang"},
+							{Key: "Description", Value: "Open source programming language that makes it easy to build simple, reliable, and efficient software"},
+							{Key: "Price", Value: "$10.99"},
+						},
+						{
+							{Key: "Item", Value: "Hermes"},
+							{Key: "Description", Value: "Programmatically create beautiful e-mails using Golang."},
+							{Key: "Price", Value: "$1.99"},
+						},
 					},
-					{
-						{Key: "Item", Value: "Hermes"},
-						{Key: "Description", Value: "Programmatically create beautiful e-mails using Golang."},
-						{Key: "Price", Value: "$1.99"},
-					},
-				},
-				Columns: Columns{
-					CustomWidth: map[string]string{
-						"Item":  "20%",
-						"Price": "15%",
-					},
-					CustomAlignment: map[string]string{
-						"Price": "right",
+					Columns: Columns{
+						CustomWidth: map[string]string{
+							"Item":  "20%",
+							"Price": "15%",
+						},
+						CustomAlignment: map[string]string{
+							"Price": "right",
+						},
 					},
 				},
 			},
@@ -266,11 +269,11 @@ func (ed *WithInviteCode) getExample() (Hermes, Email) {
 
 	email := Email{
 		Body{
-			Name:      "Jon Snow",
+			Name: "Jon Snow",
 			Actions: []Action{
 				{
 					Instructions: "Here is your invite code:",
-					InviteCode: "123456",
+					InviteCode:   "123456",
 				},
 			},
 		},
@@ -327,13 +330,15 @@ Feel free to contact us for any question regarding this matter at [support@herme
 			Dictionary: []Entry{
 				{"Dictionary that should not be displayed", "Because of FreeMarkdown"},
 			},
-			Table: Table{
-				Data: [][]Entry{
-					{
-						{Key: "Item", Value: "Golang"},
-					},
-					{
-						{Key: "Item", Value: "Hermes"},
+			Tables: []Table{
+				{
+					Data: [][]Entry{
+						{
+							{Key: "Item", Value: "Golang"},
+						},
+						{
+							{Key: "Item", Value: "Hermes"},
+						},
 					},
 				},
 			},
@@ -505,9 +510,7 @@ func TestHermes_Default(t *testing.T) {
 	assert.Empty(t, email.Body.Dictionary)
 	assert.Empty(t, email.Body.Intros)
 	assert.Empty(t, email.Body.Outros)
-	assert.Empty(t, email.Body.Table.Data)
-	assert.Empty(t, email.Body.Table.Columns.CustomWidth)
-	assert.Empty(t, email.Body.Table.Columns.CustomAlignment)
+	assert.Len(t, email.Body.Tables, 0)
 	assert.Empty(t, string(email.Body.FreeMarkdown))
 
 	assert.Equal(t, email.Body.Greeting, "Hi")

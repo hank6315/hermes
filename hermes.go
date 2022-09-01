@@ -65,7 +65,7 @@ type Body struct {
 	Name         string   // The name of the contacted person
 	Intros       []string // Intro sentences, first displayed in the email
 	Dictionary   []Entry  // A list of key+value (useful for displaying parameters/settings/personal info)
-	Table        Table    // Table is an table where you can put data (pricing grid, a bill, and so on)
+	Tables       []Table  // Tables is a list of tables where you can put data (pricing grid, a bill, and so on)
 	Actions      []Action // Actions are a list of actions that the user will be able to execute via a button click
 	Outros       []string // Outro sentences, last displayed in the email
 	Greeting     string   // Greeting for the contacted person (default to 'Hi')
@@ -89,6 +89,7 @@ type Entry struct {
 
 // Table is an table where you can put data (pricing grid, a bill, and so on)
 type Table struct {
+	Title   string    //Table title
 	Data    [][]Entry // Contains data
 	Columns Columns   // Contains meta-data for display purpose (width, alignement)
 }
